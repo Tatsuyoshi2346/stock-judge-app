@@ -1,0 +1,68 @@
+timezone: "Asia/Tokyo"
+
+# Discord Bot Token（Bot機能を使う場合のみ）
+discord_bot_token: "YOUR_DISCORD_BOT_TOKEN"
+
+# Discord Webhook URL（定時通知用）
+discord_webhook_url: "YOUR_DISCORD_WEBHOOK_URL"
+
+# 定時通知（JST, HH:MM 24h形式, 複数可）
+schedules:
+  - "09:00"
+  - "12:00"
+  - "20:00"
+
+# 監視銘柄
+tickers:
+  - "7203.T"   # トヨタ
+  - "6758.T"   # ソニーG
+  - "8058.T"   # 三菱商事
+  - "6501.T"   # 日立
+  - "7011.T"   # 三菱重工（防衛）
+  - "9107.T"   # 川崎汽船（海運）
+  - "4042.T"   # 東ソー（化学）
+  - "3436.T"   # SUMCO（半導体）
+  - "NVDA"     # NVIDIA（米）
+  - "TSLA"     # Tesla（米）
+  - "PLTR"     # Palantir（米）
+
+exclude:
+
+news:
+  enabled: true
+  feeds:
+    - "https://www.nikkei.com/rss/section/markets.xml"
+    - "https://kabutan.jp/rss/"
+    - "https://feeds.bbci.co.uk/news/business/rss.xml"
+  keywords:
+    - "トヨタ"
+    - "ソニー"
+    - "三菱商事"
+    - "半導体"
+    - "防衛"
+    - "造船"
+  max_items: 50
+
+  # ↓ 追加（任意変更OK）
+  alert:
+    use_buy_judgement: true      # ニュース内で検出した銘柄に対し BUY/SELL/HOLD を付与
+    max_posts: 6                 # 1回の実行で送る上限
+    market_hours_only: false     # trueだと日本時間の9-15時のみ投稿
+    dedupe_days: 3               # 既読扱いとする重複チェック期間（日）
+
+  # 銘柄名 → ティッカーの手動マップ（不足分は自動推定）
+  ticker_alias:
+    "トヨタ": "7203.T"
+    "ソニー": "6758.T"
+    "ソニーグループ": "6758.T"
+    "三菱商事": "8058.T"
+    "日立": "6501.T"
+    "三菱重工": "7011.T"
+    "川崎汽船": "9107.T"
+    "東ソー": "4042.T"
+    "SUMCO": "3436.T"
+    "NVIDIA": "NVDA"
+    "テスラ": "TSLA"
+    "Tesla": "TSLA"
+    "Palantir": "PLTR"
+

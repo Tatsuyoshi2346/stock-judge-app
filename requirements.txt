@@ -1,0 +1,14 @@
+pandas>=2.0
+numpy>=1.24
+yfinance>=0.2.43
+requests>=2.32
+beautifulsoup4>=4.12
+feedparser>=6.0
+APScheduler>=3.10
+PyYAML>=6.0
+pytz>=2024.1
+python-dateutil>=2.8.2
+discord.py>=2.3
+fastapi>=0.115
+uvicorn>=0.30
+streamlit>=1.40

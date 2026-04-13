@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+bot.lock
+judge_log.csv
+watchlist_scan.csv
+candidate_scan.csv
+backtest_result.csv
+news_seen.json
+config.local.yml
+*.txt
+config.yml
