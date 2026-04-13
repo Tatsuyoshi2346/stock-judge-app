@@ -7,8 +7,13 @@ app = FastAPI(title="Stock Judge API", version="1.0.0")
 
 
 def load_config():
-    with open("config.yml", "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    for path in ["config.local.yml", "config.yml", "config.example.yml"]:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return yaml.safe_load(f)
+        except FileNotFoundError:
+            continue
+    return {}
 
 
 def normalize_symbol(symbol: str) -> str:
@@ -39,18 +44,22 @@ def health():
 
 @app.get("/judge/{symbol}")
 def judge_symbol(symbol: str):
+    normalized = normalize_symbol(symbol)
     try:
-        normalized = normalize_symbol(symbol)
         df = build_features(normalized)
         if df is None or len(df) < 2:
-            raise HTTPException(status_code=400, detail="Not enough data")
+            raise HTTPException(status_code=400, detail=f"Not enough data for {normalized}")
         last = df.iloc[-1]
         prev = df.iloc[-2]
         return evaluate_signal(normalized, prev, last)
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {
+            "symbol": normalized,
+            "error": str(e),
+            "type": type(e).__name__,
+        }
 
 
 @app.get("/watchlist")
